@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: lection-12
+  name: dienice-arch-homework-service
+  labels:
+    app: arch-app
+    environment: test
+spec:
+  type: ClusterIP
+  ports:
+    - name: http-api
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  selector:
+    app: arch-app
+    environment: test

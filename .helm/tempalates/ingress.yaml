@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: lection-12
+  name: dienice-arch-homework-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /api/v1/health/
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework 
+      http:
+        paths:
+          - path: /health
+            pathType: Exact
+            backend:
+              service:
+                name: dienice-arch-homework-service
+                port:
+                  number: 80
+          - path: /otusapp/[^/]+(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: dienice-arch-homework-service
+                port:
+                  number: 80
